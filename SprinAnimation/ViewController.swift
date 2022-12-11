@@ -10,7 +10,8 @@ import SpringAnimation
 
 class ViewController: UIViewController {
 
-  
+    var animationName: String = "morph"
+    
     @IBOutlet var animatedView: SpringView!
     
     @IBOutlet var firstParamLabel: UILabel!
@@ -19,38 +20,34 @@ class ViewController: UIViewController {
     @IBOutlet var fourthParamLabel: UILabel!
     @IBOutlet var fifthParamLabel: UILabel!
     
+    @IBOutlet var animButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        presetParam()
+        setParameters()
+       // animButton.setTitle("Run", for: .normal)
     }
 
     @IBAction func runAnimButton(_ sender: UIButton) {
-        presetParam()
+        setParameters()
         animatedView.animate()
-        let anim = AnimationPreset.allCases.randomElement()!.rawValue
+        animationName = AnimationPreset.allCases.randomElement()!.rawValue
+        animButton.setTitle("Run \(animationName)", for: .normal)
+    }
+    
+    func setParameters() {
         
-    }
-    
-    func setRandomParam() {
-        animatedView.animation = "morph"
-        animatedView.force = 2
-        animatedView.duration = 2
-    }
-    
-    func presetParam() {
-       
-        animatedView.animation = AnimationPreset.allCases.randomElement()!.rawValue
+        animatedView.animation = animationName
         animatedView.curve = AnimationCurve.allCases.randomElement()!.rawValue
-        animatedView.force = 2
-        animatedView.duration = 1
-        animatedView.delay = 0.5
+        animatedView.force = round(CGFloat.random(in: 0.0 ... 2.0) * 100) / 100
+        animatedView.duration = round(CGFloat.random(in: 0.0 ... 2.0) * 100) / 100
+        animatedView.delay = round(CGFloat.random(in: 0.0 ... 2.0) * 100) / 100
         
         firstParamLabel.text = "Preset: \(animatedView.animation)"
         secondParamLabel.text = "Curve: \(animatedView.curve)"
         thirdParamLabel.text = "Force: \(animatedView.force)"
         fourthParamLabel.text = "Duration: \(animatedView.duration)"
         fifthParamLabel.text = "Delay: \(animatedView.delay)"
-        
     }
 }
 
