@@ -25,8 +25,10 @@ class ViewController: UIViewController {
     }
 
     @IBAction func runAnimButton(_ sender: UIButton) {
+        presetParam()
         animatedView.animate()
-        setRandomParam()
+        let anim = AnimationPreset.allCases.randomElement()!.rawValue
+        
     }
     
     func setRandomParam() {
@@ -36,12 +38,19 @@ class ViewController: UIViewController {
     }
     
     func presetParam() {
-        animatedView.animation = "wobble"
+       
+        animatedView.animation = AnimationPreset.allCases.randomElement()!.rawValue
+        animatedView.curve = AnimationCurve.allCases.randomElement()!.rawValue
         animatedView.force = 2
-        animatedView.duration = 2
+        animatedView.duration = 1
+        animatedView.delay = 0.5
         
-        firstParamLabel.text = "Animation: \(animatedView.animation)"
-        secondParamLabel.text = "Force: \(animatedView.force)"
+        firstParamLabel.text = "Preset: \(animatedView.animation)"
+        secondParamLabel.text = "Curve: \(animatedView.curve)"
+        thirdParamLabel.text = "Force: \(animatedView.force)"
+        fourthParamLabel.text = "Duration: \(animatedView.duration)"
+        fifthParamLabel.text = "Delay: \(animatedView.delay)"
+        
     }
 }
 
